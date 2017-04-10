@@ -1,0 +1,55 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+
+using namespace std;
+
+
+int main()
+{
+    vector<int> list;
+    //loads file
+    ifstream Readobject;
+    Readobject.open("test.txt", fstream::in);
+
+    if(Readobject)
+    {
+      Readobject.seekg (0, Readobject.end);
+      int length_file = Readobject.tellg();
+      Readobject.seekg (0, Readobject.beg);
+
+      cout << length_file << endl;
+      //char buffer[256];// = new char(length_file);
+      string buffer = "";
+      
+      getline(Readobject,buffer,',');
+
+      cout << buffer[1];
+
+      
+
+      /*
+      //fills list
+ 
+      
+      list.push_back(1);
+    
+      //Convertx01 int to string
+      int a;
+      stringstream("123") >> a;
+      char line[256];
+      cout << stringstream(Readobject.getline(line,256 ));
+       
+      
+      list.push_back(a); 
+      //Print list
+      for( unsigned int i = 0; i < list.size(); i++)
+      {
+	
+	cout << list[i] << endl;
+	}*/
+    }
+    Readobject.close();
+    return 0;
+}
