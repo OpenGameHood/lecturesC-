@@ -28,12 +28,32 @@ public:
     y = 0;
     z = 0;
   }
-  vec3(float _x, float _y, float _z)//when have predefined values
+  vec3(const float _x,const float _y,const float _z)//when have predefined values
   {
     x = _x;
     y = _y;
     z = _z;
   }
+    //change variable to vec3
+  vec3 (const float base)
+  {
+    x = base;
+    y = base;
+    z = base;
+  }
+  vec3 (const vec2 base)
+  {
+    x = base.x;
+    y = base.y;
+    z = 0;
+  }
+  vec3 (const vec2 baseVec,const float basefloat)
+  {
+    x = baseVec.x;
+    y = baseVec.y;
+    z = basefloat;
+  }
+
   //main variable's
   float x;
   float y;
@@ -44,11 +64,11 @@ public:
   {
     return vec3(x + other.x, y + other.y, z + other.z);
   }
-  vec3 operator+(int other)
+  vec3 operator+(const int other)
   {
     return vec3(x + other, y + other, z + other);
   }
-  vec3 operator+(float other)
+  vec3 operator+(const float other)
   {
     return vec3(x + other, y + other, z + other);
   }
@@ -57,11 +77,11 @@ public:
   {
     return vec3(x - other.x, y - other.y, z - other.z);
   }
-  vec3 operator-(int other)
+  vec3 operator-(const int other)
   {
     return vec3(x - other, y - other, z - other);
   }
-  vec3 operator-(float other)
+  vec3 operator-(const float other)
   {
     return vec3(x - other, y - other, z - other);
   }
@@ -70,11 +90,11 @@ public:
   {
     return vec3(x * other.x, y * other.y, z * other.z);
   }
-  vec3 operator*(int other)
+  vec3 operator*(const int other)
   {
     return vec3(x * other, y * other, z * other);
   }
-  vec3 operator*(float other)
+  vec3 operator*(const float other)
   {
     return vec3(x * other, y * other, z * other);
   }
@@ -83,11 +103,11 @@ public:
   {
     return vec3(x / other.x, y / other.y, z / other.z);
   }
-  vec3 operator/(int other)
+  vec3 operator/(const int other)
   {
     return vec3(x / other, y / other, z / other);
   }
-  vec3 operator/(float other)
+  vec3 operator/(const float other)
   {
     return vec3(x / other, y / other, z / other);
   }
@@ -99,14 +119,14 @@ public:
     z += other.z;
     return *this;
   }
-  vec3 operator+=(int other)
+  vec3 operator+=(const int other)
   {
     x += other;
     y += other;
     z += other;
     return *this;
   }
-  vec3 operator+=(float other)
+  vec3 operator+=(const float other)
   {
     x += other;
     y += other;
@@ -121,14 +141,14 @@ public:
     z -= other.z;
     return *this;
   }
-  vec3 operator-=(int other)
+  vec3 operator-=(const int other)
   {
     x -= other;
     y -= other;
     z -= other;
     return *this;
   }
-  vec3 operator-=(float other)
+  vec3 operator-=(const float other)
   {
     x -= other;
     y -= other;
@@ -143,14 +163,14 @@ public:
     z *= other.z;
     return *this;
   }
-  vec3 operator*=(int other)
+  vec3 operator*=(const int other)
   {
     x *= other;
     y *= other;
     z *= other;
     return *this;
   }
-  vec3 operator*=(float other)
+  vec3 operator*=(const float other)
   {
     x *= other;
     y *= other;
@@ -165,14 +185,14 @@ public:
     z /= other.z;
     return *this;
   }
-  vec3 operator/=(int other)
+  vec3 operator/=(const int other)
   {
     x /= other;
     y /= other;
     z /= other;
     return *this;
   }
-  vec3 operator/=(float other)
+  vec3 operator/=(const float other)
   {
     x /= other;
     y /= other;
@@ -181,55 +201,38 @@ public:
   }
 
   //vector manipulators
-  float length()
-  {
-    return sqrt(x*x + y*y + z*z);
-  }
+  
   vec3 Normalize()
   {
-    float reverseLength = flipvalue(length());
+    const float reverseLength = flipvalue(length());
     x *= reverseLength;
     y *= reverseLength;
     z *= reverseLength;
     return *this;
   }
-  float Dot_Scalar(vec3 other)
+  float Dot_Scalar(const vec3 other)
   {
     return x * other.x + y * other.y + z * other.z;
   }
-  vec3 Dot_Projection(vec3 other)
+  float length()
   {
-    float scalefactor = Dot_Scalar(other) / pow (length(), 2.0);
+    return sqrt(Dot_Scalar(*this));
+  }
+  vec3 Vector_Projection(const vec3 other)
+  {
+    const float scalefactor = Dot_Scalar(other) / pow (length(), 2.0);
     return *this * scalefactor;
   }
-  vec3 Cross_product(vec3 other)
+  vec3 Cross_product(const vec3 other)
   {
-    float _x =y * other.z - z * other.y;
-    float _y =z * other.x - x * other.z;
-    float _z =x * other.y - y * other.x;
+    const float _x =y * other.z - z * other.y;
+    const float _y =z * other.x - x * other.z;
+    const float _z =x * other.y - y * other.x;
+    vec3 result(_x,_y,_z);
+    return result;
   }
 
     
-  //change variable to vec3
-  vec3 toVec3(float base)
-  {
-    x = base;
-    y = base;
-    z = base;
-    return *this;
-  }
-  vec3 toVec3(vec2 base)
-  {
-    x = base.x;
-    y = base.y;
-    z = 0;
-  }
-  vec3 toVec3(vec2 baseVec,float basefloat)
-  {
-    x = baseVec.x;
-    y = baseVec.y;
-    z = basefloat;
-  }
 
   //getting value's of the vector
   std::string getvalue()
@@ -250,7 +253,7 @@ public:
     return result;
   }
   //math functions
-  float flipvalue(float value)
+  float flipvalue(const float value)
   {
     return 1/value;
   }
@@ -294,13 +297,13 @@ int main()
   
   vec3 B = vec3(x,y,z);
 
-  vec3 C = A.Dot_Projection(B);
+  vec3 C = A.Vector_Projection(B);
 
   std::cout << "the dot product of vector A and B: " << A.Dot_Scalar(B) << " with value: " << A.getvalue() << " " << B.getvalue() << std::endl;
   
   std::cout << "the  vector B projected on A is: " << C.x << ", " << C.y << ", "  << C.z << " with value: " << A.getvalue() << " " << B.getvalue() << std::endl;
 
-  C = B.Dot_Projection(A);
+  C = B.Vector_Projection(A);
 
   std::cout << "the  vector A Pojected on B is: " << C.x << ", " << C.y << ", "  << C.z <<  " with value: " << A.getvalue() << " " << B.getvalue() << std::endl;
 
