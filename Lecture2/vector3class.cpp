@@ -210,6 +210,15 @@ public:
     z *= reverseLength;
     return *this;
   }
+  vec3 Normalize(vec3 writeTo)
+  {
+    const float reverseLength = flipvalue(length());
+    writeTo.x *= reverseLength;
+    writeTo.y *= reverseLength;
+    writeTo.z *= reverseLength;
+    return writeTo;
+  }
+  
   float Dot_Scalar(const vec3 other)
   {
     return x * other.x + y * other.y + z * other.z;
